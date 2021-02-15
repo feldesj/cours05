@@ -2,12 +2,10 @@ version: 2.1
 
 jobs:
   checkoutAndTest:
-    docker:
-      - image: cimg/node:15.8.0
+    machine: true
     steps:
       - checkout
       - run: node --version
-      - run: npm --version
       - run: npm install
       - run: npm run test
 workflows:
