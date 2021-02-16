@@ -1,0 +1,16 @@
+orbs:
+  node: circleci/node@4.1.0
+
+version: 2.1
+
+jobs:
+  checkoutAndTest:
+    docker:
+      - image: cimg/node:15.8.0
+    steps:
+      - run: git clone https://github.com/feldesj/exercice3Back.git
+      - run: git clone https://github.com/feldesj/exercice3Front.git
+workflows:
+  app-tests:
+    jobs:
+      - node/test
