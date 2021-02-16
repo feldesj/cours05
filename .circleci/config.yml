@@ -1,38 +1,80 @@
 version: 2.1
 
 jobs:
-  checkoutAndTest:
-    docker:
-      - image: cimg/node:15.8.0
+  checkout_and_unit_test:
+    machine: true
     steps:
       - checkout
-      - run: node --version
-      - run: npm --version
-      - run: npm install
-      - run: npm run test
-  afterTests1:
+      - run: echo "checkout and unit tests completed!"
+  deploy_backend:
     machine: true
     steps:
-      - run: echo "tests 1 have passed!"
-  afterTests2:
+      - checkout
+      - run: echo "backend deployed!"
+  integration_tests_backend:
     machine: true
     steps:
-      - run: echo "tests 2 have passed!"
-  deploy:
+      - checkout
+      - run: echo "integration tests for the backend are completed!"
+  deploy_staging:
     machine: true
     steps:
-      - run: echo "deploy"
+      - checkout
+      - run: echo "staging deploy done!"
+  acceptance_test_1:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "acceptance test 1 completed!"
+  acceptance_test_2:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "acceptance test 2 completed!"
+  acceptance_test_3:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "acceptance test 3 completed!"
+  acceptance_test_1:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "acceptance test 4 completed!"
+  deploy_production:
+    machine: true
+    steps:
+      - checkout
+      - run: echo "succesfully deployed to production!"
 workflows:
   build:
     jobs:
-      - checkoutAndTest
-      - afterTests1:
+      - checkout_and_unit_test
+      - deploy_backend:
           requires:
-            - checkoutAndTest
-      - afterTests2:
+            - checkout_and_unit_test
+      - integration_tests_backend:
           requires:
-            - checkoutAndTest
-      - deploy:
+            - deploy_backend
+      - deploy_staging:
           requires:
-            - afterTests1
-            - afterTests2
+            - integration_tests_backend
+      - acceptance_test_1:
+          requires:
+            - deploy_staging
+      - acceptance_test_2:
+          requires:
+            - deploy_staging
+      - acceptance_test_3:
+          requires:
+            - deploy_staging
+      - acceptance_test_4:
+          requires:
+            - deploy_staging
+      - deploy_production:
+          requires:
+            - acceptance_test_1
+            - acceptance_test_2
+            - acceptance_test_3
+            - acceptance_test_4
+
