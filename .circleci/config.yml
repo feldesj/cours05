@@ -9,42 +9,34 @@ jobs:
   deploy_backend:
     machine: true
     steps:
-      - checkout
       - run: echo "backend deployed!"
   integration_tests_backend:
     machine: true
     steps:
-      - checkout
       - run: echo "integration tests for the backend are completed!"
   deploy_staging:
     machine: true
     steps:
-      - checkout
       - run: echo "staging deploy done!"
   acceptance_test_1:
     machine: true
     steps:
-      - checkout
       - run: echo "acceptance test 1 completed!"
   acceptance_test_2:
     machine: true
     steps:
-      - checkout
       - run: echo "acceptance test 2 completed!"
   acceptance_test_3:
     machine: true
     steps:
-      - checkout
       - run: echo "acceptance test 3 completed!"
   acceptance_test_4:
     machine: true
     steps:
-      - checkout
       - run: echo "acceptance test 4 completed!"
   deploy_production:
     machine: true
     steps:
-      - checkout
       - run: echo "succesfully deployed to production!"
 workflows:
   build:
